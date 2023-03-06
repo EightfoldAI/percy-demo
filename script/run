@@ -1,0 +1,7 @@
+#!/bin/bash -x
+
+echo "Running selenium tests locally!"
+export PERCY_TOKEN="cfac33a66a6978b674a64cd5029eaf4c0124cc970ef35891f27313e9e1e2709f"
+BUILD_ID=$(node_modules/.bin/percy exec -- pytest -s --environment=qa --domain_name=aexp --region="" tests/tm_test.py | grep build | awk -F "/" '{print $NF}')
+percy-report generate $BUILD_ID
+
